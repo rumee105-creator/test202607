@@ -1,0 +1,6 @@
+{
+  "name": "매체 리터러시와 가짜 뉴스 판별법 - 5장 슬라이드 수업안",
+  "description": "2022 개정 교육과정 고등학교 국어과 매체 리터러시 수업용 5장 구글 슬라이드 초안, 논리적 오류 퀴즈 및 구글 슬라이드 내보내기 도구",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

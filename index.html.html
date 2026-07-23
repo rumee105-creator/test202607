@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2022 개정 국어과 - 매체 리터러시와 가짜 뉴스 판별법 (5장 구글 슬라이드 초안)</title>
+  <style>
+    /* Pure CSS Styling - Double-click standalone runnable without internet or node.js */
+    :root {
+      --primary: #4f46e5;
+      --primary-hover: #4338ca;
+      --primary-light: #eef2ff;
+      --slate-900: #0f172a;
+      --slate-800: #1e293b;
+      --slate-700: #334155;
+      --slate-600: #475569;
+      --slate-100: #f1f5f9;
+      --slate-50: #f8fafc;
+      --amber-600: #d97706;
+      --amber-100: #fef3c7;
+      --amber-50: #fffbeb;
+      --emerald-600: #059669;
+      --emerald-50: #ecfdf5;
+      --red-600: #dc2626;
+      --red-50: #fef2f2;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    body {
+      background-color: #f3f4f6;
+      color: var(--slate-900);
+      line-height: 1.6;
+      padding-bottom: 40px;
+    }
+
+    /* Header */
+    header {
+      background-color: var(--slate-900);
+      color: white;
+      padding: 16px 24px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .header-title-group h1 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .badges {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 4px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-weight: 600;
+    }
+
+    .badge-indigo { background: rgba(99, 102, 241, 0.2); color: #a5b4fc; border: 1px solid rgba(99, 102, 241, 0.4); }
+    .badge-emerald { background: rgba(16, 185, 129, 0.2); color: #6ee7b7; border: 1px solid rgba(16, 185, 129, 0.4); }
+    .badge-amber { background: rgba(245, 158, 11, 0.2); color: #fcd34d; border: 1px solid rgba(245, 158, 11, 0.4); }
+
+    .header-btn-group {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 8px 14px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .btn-primary { background: var(--primary); color: white; }
+    .btn-primary:hover { background: var(--primary-hover); }
+
+    .btn-secondary { background: var(--slate-800); color: white; border: 1px solid var(--slate-700); }
+    .btn-secondary:hover { background: var(--slate-700); }
+
+    .btn-emerald { background: var(--emerald-600); color: white; }
+    .btn-emerald:hover { background: #047857; }
+
+    /* Layout Main */
+    .main-container {
+      max-width: 1280px;
+      margin: 24px auto;
+      padding: 0 16px;
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 24px;
+    }
+
+    @media (max-width: 900px) {
+      .main-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Sidebar */
+    .sidebar-card {
+      background: white;
+      border-radius: 16px;
+      padding: 16px;
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      margin-bottom: 16px;
+    }
+
+    .sidebar-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #e5e7eb;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .slide-item-btn {
+      width: 100%;
+      text-align: left;
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px solid #e5e7eb;
+      background: white;
+      margin-bottom: 8px;
+      cursor: pointer;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      transition: all 0.2s;
+    }
+
+    .slide-item-btn:hover {
+      border-color: var(--primary);
+      background: var(--slate-50);
+    }
+
+    .slide-item-btn.active {
+      background: var(--primary-light);
+      border-color: var(--primary);
+      box-shadow: 0 0 0 1px var(--primary);
+    }
+
+    .slide-num-badge {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: #e2e8f0;
+      color: var(--slate-800);
+      font-weight: 700;
+      font-size: 0.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .slide-item-btn.active .slide-num-badge {
+      background: var(--primary);
+      color: white;
+    }
+
+    .slide-item-btn.quiz-item .slide-num-badge {
+      background: var(--amber-600);
+      color: white;
+    }
+
+    .slide-item-info h4 {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-bottom: 2px;
+    }
+
+    .slide-item-info p {
+      font-size: 0.75rem;
+      color: var(--slate-600);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 210px;
+    }
+
+    /* Stage Viewer */
+    .stage-card {
+      background: white;
+      border-radius: 16px;
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      overflow: hidden;
+    }
+
+    .stage-header {
+      background: linear-gradient(to right, #0f172a, #1e1b4b);
+      color: white;
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .stage-curriculum {
+      font-size: 0.75rem;
+      background: rgba(255,255,255,0.15);
+      padding: 4px 12px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .stage-title-area {
+      padding: 24px;
+      border-bottom: 1px solid #f1f5f9;
+      background: #fafafa;
+    }
+
+    .stage-title-area h2 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--slate-900);
+      line-height: 1.3;
+    }
+
+    .stage-title-area p {
+      font-size: 0.95rem;
+      color: var(--slate-600);
+      margin-top: 6px;
+    }
+
+    /* Tabs */
+    .tab-bar {
+      display: flex;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 0 24px;
+      background: white;
+    }
+
+    .tab-btn {
+      padding: 12px 18px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--slate-600);
+      background: none;
+      border: none;
+      border-bottom: 3px solid transparent;
+      cursor: pointer;
+    }
+
+    .tab-btn.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+
+    .stage-content {
+      padding: 28px;
+    }
+
+    .prose-box {
+      background: white;
+      border: 1px solid #cbd5e1;
+      border-left: 5px solid var(--primary);
+      border-radius: 12px;
+      padding: 20px;
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: var(--slate-800);
+      white-space: pre-line;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+    }
+
+    /* Quiz Styling */
+    .quiz-box {
+      background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+      border: 2px solid #fcd34d;
+      border-radius: 16px;
+      padding: 20px;
+      margin-top: 24px;
+    }
+
+    .quiz-tag {
+      display: inline-block;
+      background: var(--amber-600);
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 12px;
+      margin-bottom: 8px;
+    }
+
+    .quiz-question {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--slate-900);
+      margin-bottom: 12px;
+    }
+
+    .quiz-scenario {
+      background: white;
+      border: 1px solid #fde68a;
+      border-radius: 12px;
+      padding: 16px;
+      font-size: 0.9rem;
+      color: #78350f;
+      line-height: 1.6;
+      margin-bottom: 16px;
+      font-family: Georgia, serif;
+    }
+
+    .quiz-options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .opt-btn {
+      text-align: left;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: white;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .opt-btn:hover {
+      border-color: var(--amber-600);
+      background: #fffbeb;
+    }
+
+    .opt-btn.correct {
+      background: var(--emerald-50);
+      border-color: var(--emerald-600);
+      color: #065f46;
+    }
+
+    .opt-btn.wrong {
+      background: var(--red-50);
+      border-color: var(--red-600);
+      color: #991b1b;
+    }
+
+    .explanation-box {
+      background: white;
+      border-radius: 12px;
+      padding: 16px;
+      border: 1px solid #e5e7eb;
+      margin-top: 12px;
+    }
+
+    .explanation-title {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: var(--slate-900);
+      margin-bottom: 8px;
+    }
+
+    /* Bullet Outline grid */
+    .outline-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 12px;
+    }
+
+    .outline-card {
+      background: var(--slate-50);
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 14px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .outline-num {
+      background: var(--primary);
+      color: white;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    .notes-box {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 12px;
+      padding: 16px;
+      font-size: 0.9rem;
+      color: #78350f;
+    }
+
+    /* Modal Presentation */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(15, 23, 42, 0.95);
+      z-index: 1000;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-stage {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    .slide-fullscreen-card {
+      background: white;
+      width: 100%;
+      max-width: 960px;
+      border-radius: 24px;
+      padding: 40px;
+      color: var(--slate-900);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--slate-900);
+      color: white;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3);
+      display: none;
+      z-index: 2000;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation Header -->
+  <header>
+    <div class="header-container">
+      <div class="header-title-group">
+        <div class="badges">
+          <span class="badge badge-indigo">고등학교 국어</span>
+          <span class="badge badge-emerald">2022 개정 교육과정</span>
+          <span class="badge badge-amber">구글 슬라이드 5장 단독 파일</span>
+        </div>
+        <h1>매체 리터러시와 가짜 뉴스 판별법 수업안</h1>
+      </div>
+
+      <div class="header-btn-group">
+        <button class="btn btn-secondary" onclick="copyAllSlidesText()">
+          📋 구글 슬라이드 전체 텍스트 복사
+        </button>
+        <button class="btn btn-emerald" onclick="openFullscreenPresentation()">
+          ▶ 수업 발표 모드 (전체화면)
+        </button>
+        <button class="btn btn-primary" onclick="window.print()">
+          🖨️ 슬라이드 인쇄 / PDF 저장
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Grid Workspace -->
+  <div class="main-container">
+    
+    <!-- Left Navigation Sidebar -->
+    <aside>
+      <div class="sidebar-card">
+        <div class="sidebar-title">
+          <span>5장 슬라이드 목차</span>
+          <span style="font-size: 0.75rem; color: var(--slate-600)">2022 개정</span>
+        </div>
+        <div id="slideList"></div>
+      </div>
+
+      <div class="sidebar-card" style="background: #1e1b4b; color: white; border-color: #312e81;">
+        <h3 style="font-size: 0.9rem; font-weight: 700; margin-bottom: 8px; color: #a5b4fc;">
+          💡 사용 안내 (더블클릭 실행)
+        </h3>
+        <p style="font-size: 0.8rem; color: #cbd5e1; line-height: 1.5;">
+          이 HTML 파일은 인터넷 연결이나 별도의 설치 프로그램 없이 브라우저에서 바로 실행됩니다.
+          오른쪽 슬라이드 텍스트를 복사하여 구글 슬라이드에 직접 붙여넣어 수업자료를 만드실 수 있습니다.
+        </p>
+      </div>
+    </aside>
+
+    <!-- Right Main Stage -->
+    <main>
+      <div class="stage-card">
+        <!-- Stage Top Bar -->
+        <div class="stage-header">
+          <span id="slideIndexBadge" style="font-size: 0.8rem; font-weight: 700; color: #a5b4fc;">
+            Slide 1 / 5
+          </span>
+          <span class="stage-curriculum" id="curriculumStandard">
+            [10국04-02] 성취기준
+          </span>
+        </div>
+
+        <!-- Stage Title -->
+        <div class="stage-title-area">
+          <h2 id="slideTitle">제목</h2>
+          <p id="slideSubtitle">부제목</p>
+        </div>
+
+        <!-- Tab Bar -->
+        <div class="tab-bar">
+          <button class="tab-btn active" id="tabProseBtn" onclick="switchTab('prose')">
+            📝 줄글 상세 본문
+          </button>
+          <button class="tab-btn" id="tabOutlineBtn" onclick="switchTab('outline')">
+            📌 핵심 요약 개요
+          </button>
+          <button class="tab-btn" id="tabNotesBtn" onclick="switchTab('notes')">
+            🗣️ 교사 발표자 노트
+          </button>
+        </div>
+
+        <!-- Stage Content Area -->
+        <div class="stage-content">
+          <!-- Tab 1: Prose -->
+          <div id="tabProseView">
+            <div style="font-size: 0.75rem; font-weight: 700; color: var(--slate-600); margin-bottom: 8px;">
+              슬라이드에 들어갈 상세 본문 내용 (줄글 작성)
+            </div>
+            <div class="prose-box" id="slideProseContent"></div>
+
+            <!-- Quiz Section (Appears on Slide 3) -->
+            <div id="quizContainer" style="display: none;" class="quiz-box">
+              <span class="quiz-tag">비판적 사고 퀴즈 (3번 슬라이드)</span>
+              <h3 class="quiz-question" id="quizQuestionTitle"></h3>
+              <div class="quiz-scenario" id="quizScenario"></div>
+              
+              <p style="font-size: 0.75rem; font-weight: 700; color: #92400e; margin-bottom: 8px;">
+                선택지를 클릭하여 논리적 오류 정답과 해설을 확인하세요:
+              </p>
+              <div class="quiz-options" id="quizOptionsGrid"></div>
+
+              <div id="quizExplanationArea" style="display: none;" class="explanation-box"></div>
+            </div>
+          </div>
+
+          <!-- Tab 2: Outline -->
+          <div id="tabOutlineView" style="display: none;">
+            <div style="font-size: 0.75rem; font-weight: 700; color: var(--slate-600); margin-bottom: 12px;">
+              슬라이드 글머리 기호 요약 포인트
+            </div>
+            <div class="outline-grid" id="slideOutlineGrid"></div>
+          </div>
+
+          <!-- Tab 3: Speaker Notes -->
+          <div id="tabNotesView" style="display: none;">
+            <div style="font-size: 0.75rem; font-weight: 700; color: var(--slate-600); margin-bottom: 8px;">
+              구글 슬라이드 하단 발표자 노트용 수업 진행 대본
+            </div>
+            <div class="notes-box" id="slideSpeakerNotes"></div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Fullscreen Presentation Modal -->
+  <div class="modal-overlay" id="fullscreenModal">
+    <div style="padding: 16px 24px; background: #020617; display: flex; justify-content: space-between; align-items: center; border-b: 1px solid #1e293b;">
+      <span style="color: white; font-weight: 700; font-size: 0.9rem;">
+        [수업 발표 모드] 매체 리터러시와 가짜 뉴스 판별법
+      </span>
+      <button class="btn btn-secondary" onclick="closeFullscreenPresentation()">
+        ✕ 닫기 (ESC)
+      </button>
+    </div>
+
+    <div class="modal-stage">
+      <div class="slide-fullscreen-card">
+        <span id="fsNum" style="font-size: 0.8rem; font-weight: 800; color: var(--primary); text-transform: uppercase;"></span>
+        <h1 id="fsTitle" style="font-size: 2rem; font-weight: 800; margin-top: 4px; margin-bottom: 8px;"></h1>
+        <p id="fsSubtitle" style="font-size: 1.1rem; color: var(--slate-600); margin-bottom: 24px;"></p>
+
+        <div id="fsBody" style="background: var(--slate-50); border: 1px solid #e2e8f0; border-left: 6px solid var(--primary); padding: 24px; border-radius: 16px; font-size: 1.1rem; line-height: 1.8;"></div>
+      </div>
+    </div>
+
+    <div style="padding: 16px 24px; background: #020617; display: flex; justify-content: space-between; align-items: center;">
+      <button class="btn btn-secondary" onclick="prevSlide()">◀ 이전 슬라이드</button>
+      <span id="fsCounter" style="color: #94a3b8; font-weight: 700;">1 / 5</span>
+      <button class="btn btn-primary" onclick="nextSlide()">다음 슬라이드 ▶</button>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toastMsg">복사되었습니다!</div>
+
+  <!-- Vanilla JavaScript Logic -->
+  <script>
+    const slidesData = [
+      {
+        id: 1,
+        title: "[도입] 디지털 정보 사회와 매체 리터러시의 필요성",
+        subtitle: "2022 개정 국어과 교육과정: 매체 정보의 비판적 수용과 주체적 소통",
+        curriculumStandard: "[10국04-02] 매체에 나타난 정보의 신뢰성과 타당성을 비판적으로 평가하며 읽는다.",
+        contentProse: `오늘날 우리는 인공지능과 SNS, 알고리즘 추천 시스템이 지배하는 거대한 디지털 정보의 바다 속에서 살아가고 있습니다. 스마트폰 하나만 열면 수천 건의 기사와 소식, 숏폼 영상이 끊임없이 쏟아지지만, 모든 정보가 객관적 사실에 기반하고 있지는 않습니다.\n\n2022 개정 국어과 교육과정에서는 학생들이 이러한 매체 환경 변화에 능동적으로 대응할 수 있도록 '매체 리터러시(Media Literacy)' 역량을 강조하고 있습니다. 매체 리터러시란 단순한 정보의 읽기와 쓰기를 넘어, 매체에 담긴 의도와 맥락을 파악하고 정보의 신뢰성과 타당성을 비판적으로 평가하는 능력을 뜻합니다. 수동적인 정보 소비자에 머무르지 않고, 참과 거짓을 스스로 식별해낼 수 있는 비판적 사고력이 필요한 이유를 탐구해 봅시다.`,
+        bulletPoints: [
+          "디지털 매체 환경의 변화와 정보 과잉 시대의 특징",
+          "매체 리터러시(Media Literacy)의 개념과 교육적 중요성",
+          "2022 개정 국어과 성취기준 및 비판적 사고의 핵심 목표",
+          "수동적 소비자에서 주체적·비판적 매체 이용자로의 전환"
+        ],
+        speakerNotes: `여러분, 오늘 아침에도 유튜브나 인스타그램으로 다양한 소식을 접하셨죠? 하지만 그 정보 중 진짜와 가짜를 구별해 본 적이 있나요? 2022 개정 국어 수업의 핵심은 '우리가 보는 정보가 과연 믿을 만한가?'를 스스로 질문하는 능력입니다.`
+      },
+      {
+        id: 2,
+        title: "[전개 1] 가짜 뉴스(Fake News)의 개념과 교묘한 유포 유형",
+        subtitle: "허위 조작 정보의 정의와 자극적 유포 자극 기법 분석",
+        curriculumStandard: "[12매체01-02] 매체 자료에 숨겨진 의도와 편향성을 식별하고 타당성을 검증한다.",
+        contentProse: `가짜 뉴스(Fake News)는 정치적·상업적 목적으로 거짓 사실을 마치 신뢰할 수 있는 언론 보도인 것처럼 꾸며 유포하는 '허위 조작 정보'를 의미합니다.\n\n가짜 뉴스가 유포되는 주요 동기는 세 가지로 나뉩니다. 첫째는 자극적인 헤드라인을 통해 조회수를 올리고 광고 수익을 얻으려는 '상업적 낚시', 둘째는 특정 집단의 이익이나 선거에 영향을 미치려는 '정치적 선동', 셋째는 특정 개인이나 기업의 명예를 훼손하려는 '악의적 비방'입니다.\n\n최근 가짜 뉴스는 단순히 정교하지 못한 루머 수준을 넘어, 언론사 로고를 도용하고, 기존 뉴스 화면을 교묘하게 짜깁기하거나, 인공지능 딥페이크(Deepfake) 기술을 활용해 진짜 사람처럼 말하는 영상을 제작하는 등 점점 더 지능화되고 있습니다.`,
+        bulletPoints: [
+          "가짜 뉴스(허위 조작 정보)의 정확한 정의와 사회적 폐해",
+          "유포의 3대 동기: 상업적 조회수 수익, 정치적 진영 선동, 악의적 명예훼손",
+          "교묘해진 제작 기법: 언론사 로고 도용, 자극적 낚시성 제목, 짜깁기 편집",
+          "신기술 악용: 생성형 AI 및 딥페이크(Deepfake) 음성·영상 조작의 위험성"
+        ],
+        speakerNotes: `가짜 뉴스는 단순한 거짓말이 아닙니다. 사람들의 불안이나 호기심을 자극해 돈을 벌거나 사회적 분열을 일으키는 무기입니다. 특히 AI 기술이 발전하면서 영상까지 완벽하게 조작할 수 있는 시대가 되었기 때문에 더욱 정교한 판단이 필요합니다.`
+      },
+      {
+        id: 3,
+        title: "[전개 2] 비판적 사고 퀴즈: 뉴스 속 논리적 오류를 찾아라!",
+        subtitle: "실제 기사 사례를 통해 탐구하는 비판적 읽기 실습",
+        curriculumStandard: "[10국04-02] 정보의 논리적 비약과 타당성을 평가하는 비판적 사고력 함양",
+        contentProse: `가짜 뉴스나 선동적인 기사는 사람들의 감정을 자극하기 위해 교묘한 '논리적 오류'를 사용합니다. 논리적 오류를 식별하는 것은 가짜 뉴스의 허점을 파악하는 가장 강력한 무기입니다.\n\n아래 제시된 실제 뉴스 기사 형태의 예시를 읽고, 어떠한 논리적 오류가 숨어 있는지 모둠원과 함께 찾아봅시다.`,
+        bulletPoints: [
+          "논리적 오류 식별을 통한 가짜 뉴스 판별의 실습",
+          "성급한 일반화의 오류: 소수 사례를 전체로 확장하는 오류",
+          "흑백논리의 오류: 이분법적 선택만을 강요하는 양극화 오류",
+          "비판적 질문 던지기: '이 주장을 뒷받침하는 근거는 충분한가?'"
+        ],
+        speakerNotes: `자, 이제 직접 기자가 된 마음으로 기사 속의 허점을 찾아봅시다! 기사 내용을 읽고 왜 이 주장이 위험한 논리적 오류인지 생각해 보세요.`,
+        quiz: {
+          questionTitle: "퀴즈: 다음 기사문에서 발견할 수 있는 핵심 논리적 오류는 무엇일까요?",
+          scenario: `[SNS 기사 보도 예시]\n"최근 A 건강식품을 복용한 소비자 3명이 감기 증상이 씻은 듯이 완치되었다고 증언했습니다! 따라서 이 A 건강식품은 인류가 직면한 모든 바이러스 질환을 완치할 수 있는 기적의 만병통치약임이 명백합니다! 아직도 이 제품을 의심하며 구매하지 않는 사람은 자신의 건강과 가족의 안전을 완전히 포기한 사람입니다!"`,
+          options: [
+            { id: "A", text: "성급한 일반화의 오류 + 흑백논리의 오류", isCorrect: true, exp: "정답입니다! 단 3명의 극소수 사례만으로 모든 바이러스에 효과가 있다는 거대한 결론을 낸 '성급한 일반화'와, 사지 않으면 건강을 포기한 것이라는 '흑백논리'가 쓰였습니다." },
+            { id: "B", text: "순환 논리의 오류 + 인신공격의 오류", isCorrect: false, exp: "오답입니다. 본 기사는 결론을 반복하거나 인신공격을 하기보다는 소수 사례의 확장과 이분법 강요가 두드러집니다." },
+            { id: "C", text: "피장파장의 오류 + 붉은 청어의 오류", isCorrect: false, exp: "오답입니다. 피장파장은 상대의 행동을 트집 잡는 오류이며 붉은 청어는 논점을 이탈하는 오류입니다." },
+            { id: "D", text: "권위에의 의존 오류 + 슬리퍼 효과", isCorrect: false, exp: "오답입니다. 권위자의 이름이나 전문 기관을 빌리고 있지 않습니다." }
+          ]
+        }
+      },
+      {
+        id: 4,
+        title: "[전개 3] 가짜 뉴스를 파헤치는 팩트체크 5단계 판별법",
+        subtitle: "언론진흥재단 및 국어과 매체 수용 가이드라인 기반",
+        curriculumStandard: "[10국04-02] 정보의 출처, 맥락, 근거를 종합하여 타당성을 객관적으로 평가한다.",
+        contentProse: `가짜 뉴스에 속지 않고 진실된 정보를 선별하기 위해 실생활에서 바로 적용할 수 있는 '팩트체크 5단계 판별 수칙'을 체화해 봅시다.\n\n첫째, [출처 및 작성자 확인]입니다. 공인된 언론사인지, 기자의 실명과 이메일이 기재되어 있는지 확인합니다.\n둘째, [제목과 본문 맥락 교차 점검]입니다. 자극적인 낚시성 제목과 본문의 실제 내용이 일치하는지 파악합니다.\n셋째, [인용 근거 및 수치 원본 검증]입니다. 기사에 언급된 연구 결과나 통계 자료의 원본 발표 기관을 검색합니다.\n넷째, [작성 날짜 확인]입니다. 과거 수년 전 사건을 최신 이슈인 것처럼 재탕하여 유포하는 경우가 많습니다.\n다섯째, [교차 검증(Cross-checking)]입니다. SNU 팩트체크나 공신력 있는 다른 매체에서도 같은 내용을 보도했는지 비교 분석합니다.`,
+        bulletPoints: [
+          "1단계: 출처 및 작성자 검증 (기자 실명, 언론사 공인 도메인 확인)",
+          "2단계: 제목과 본문 맥락 일치성 (낚시성 자극적 제목 배제)",
+          "3단계: 인용 통계 및 연구 자료 원본 데이터 추적 검색",
+          "4단계: 작성 일자 및 시점 검증 (과거 뉴스 재탕 여부 파악)",
+          "5단계: 교차 검증 (다른 언론사 및 전문 팩트체크 플랫폼 비교)"
+        ],
+        speakerNotes: `이 5가지 단계는 여러분이 인터넷을 탐색할 때 켜두어야 하는 '디지털 레이더'입니다. 공유 버튼을 누르기 전 2~3가지는 꼭 확인합시다.`
+      },
+      {
+        id: 5,
+        title: "[정리 및 적용] 주체적 매체 소비자로서의 다짐과 모둠 활동",
+        subtitle: "2022 개정 교육과정 매체 영역 마무리 및 실습 과제 제시",
+        curriculumStandard: "[12매체01-02] 매체 윤리를 준수하며 주체적이고 책임감 있게 소통하는 태도를 가진다.",
+        contentProse: `비판적 매체 리터러시는 타인의 글을 무조건 의심하고 비난하는 태도가 아니라, 정교한 판단 기준을 바탕으로 진실을 구분해내는 지적 미덕입니다.\n\n우리가 무심코 누른 '좋아요'나 '공유하기' 버튼 하나가 가짜 뉴스의 확산을 돕는 공범이 될 수도 있습니다. 2022 개정 국어과 교육과정이 지향하는 바람직한 매체 수용자는 참된 정보를 가려낼 뿐만 아니라, 매체 윤리를 준수하며 스스로 책임감 있는 정보를 생산하는 시민입니다.\n\n오늘 배운 팩트체크 5단계를 바탕으로, 우리 생활 주변에서 접한 기사 한 편을 선정해 팩트체크 리포트를 작성해 보는 실습 활동을 진행해 봅시다.`,
+        bulletPoints: [
+          "비판적 수용의 본질: 무조건적 불신이 아닌 타당성 있는 진실 추구",
+          "매체 윤리와 시민 의식: 정보 유포자로서의 사회적 책임감 유념",
+          "모둠 실습 과제: '나만의 매체 기사 팩트체크 일지 작성하기'",
+          "핵심 질문으로 수업 마무리: '내가 오늘 공유하려는 정보는 진짜인가?'"
+        ],
+        speakerNotes: `오늘 수업을 마무리하며 기억합시다. 정보는 넘쳐나지만 진실은 비판적으로 읽는 사람에게만 보입니다. 다음 시간에 모둠별 팩트체크 리포트를 발표해 봅시다.`
+      }
+    ];
+
+    let currentSlideIdx = 0;
+    let activeTabName = 'prose';
+
+    function renderSlideList() {
+      const container = document.getElementById('slideList');
+      container.innerHTML = '';
+
+      slidesData.forEach((s, idx) => {
+        const isActive = idx === currentSlideIdx;
+        const btn = document.createElement('button');
+        btn.className = `slide-item-btn ${isActive ? 'active' : ''} ${s.quiz ? 'quiz-item' : ''}`;
+        btn.onclick = () => selectSlide(idx);
+
+        btn.innerHTML = `
+          <div class="slide-num-badge">${s.id}</div>
+          <div class="slide-item-info">
+            <h4>${s.title}</h4>
+            <p>${s.subtitle}</p>
+          </div>
+        `;
+        container.appendChild(btn);
+      });
+    }
+
+    function selectSlide(idx) {
+      currentSlideIdx = idx;
+      renderSlideList();
+      renderSlideStage();
+    }
+
+    function renderSlideStage() {
+      const slide = slidesData[currentSlideIdx];
+
+      document.getElementById('slideIndexBadge').innerText = `Slide ${slide.id} / 5`;
+      document.getElementById('curriculumStandard').innerText = slide.curriculumStandard;
+      document.getElementById('slideTitle').innerText = slide.title;
+      document.getElementById('slideSubtitle').innerText = slide.subtitle;
+      document.getElementById('slideProseContent').innerText = slide.contentProse;
+      document.getElementById('slideSpeakerNotes').innerText = slide.speakerNotes;
+
+      // Render Outline Grid
+      const outlineContainer = document.getElementById('slideOutlineGrid');
+      outlineContainer.innerHTML = '';
+      slide.bulletPoints.forEach((point, i) => {
+        const card = document.createElement('div');
+        card.className = 'outline-card';
+        card.innerHTML = `<div class="outline-num">${i + 1}</div><div style="font-size:0.85rem; font-weight:600;">${point}</div>`;
+        outlineContainer.appendChild(card);
+      });
+
+      // Render Quiz if Slide 3
+      const quizContainer = document.getElementById('quizContainer');
+      if (slide.quiz) {
+        quizContainer.style.display = 'block';
+        document.getElementById('quizQuestionTitle').innerText = slide.quiz.questionTitle;
+        document.getElementById('quizScenario').innerText = slide.quiz.scenario;
+
+        const optionsGrid = document.getElementById('quizOptionsGrid');
+        optionsGrid.innerHTML = '';
+        document.getElementById('quizExplanationArea').style.display = 'none';
+
+        slide.quiz.options.forEach(opt => {
+          const btn = document.createElement('button');
+          btn.className = 'opt-btn';
+          btn.innerText = `${opt.id}. ${opt.text}`;
+          btn.onclick = () => {
+            // highlight buttons
+            Array.from(optionsGrid.children).forEach(child => child.className = 'opt-btn');
+            btn.className = opt.isCorrect ? 'opt-btn correct' : 'opt-btn wrong';
+
+            const expArea = document.getElementById('quizExplanationArea');
+            expArea.style.display = 'block';
+            expArea.innerHTML = `
+              <div class="explanation-title">${opt.isCorrect ? '🎉 정답입니다!' : '⚠️ 다시 검토해 보세요!'}</div>
+              <p style="font-size:0.85rem; color: var(--slate-700); leading-height:1.5;">${opt.exp}</p>
+            `;
+          };
+          optionsGrid.appendChild(btn);
+        });
+      } else {
+        quizContainer.style.display = 'none';
+      }
+    }
+
+    function switchTab(tab) {
+      activeTabName = tab;
+      document.getElementById('tabProseBtn').className = `tab-btn ${tab === 'prose' ? 'active' : ''}`;
+      document.getElementById('tabOutlineBtn').className = `tab-btn ${tab === 'outline' ? 'active' : ''}`;
+      document.getElementById('tabNotesBtn').className = `tab-btn ${tab === 'notes' ? 'active' : ''}`;
+
+      document.getElementById('tabProseView').style.display = tab === 'prose' ? 'block' : 'none';
+      document.getElementById('tabOutlineView').style.display = tab === 'outline' ? 'block' : 'none';
+      document.getElementById('tabNotesView').style.display = tab === 'notes' ? 'block' : 'none';
+    }
+
+    function copyAllSlidesText() {
+      const text = slidesData.map(s => `[슬라이드 ${s.id}] ${s.title}\n성취기준: ${s.curriculumStandard}\n\n【상세 줄글 본문】\n${s.contentProse}\n\n【발표자 노트】\n${s.speakerNotes}\n\n`).join('=======================================\n');
+      navigator.clipboard.writeText(text);
+      showToast("5장 전체 슬라이드 줄글 복사 완료! 구글 슬라이드에 붙여넣기 하세요.");
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toastMsg');
+      toast.innerText = msg;
+      toast.style.display = 'block';
+      setTimeout(() => toast.style.display = 'none', 2500);
+    }
+
+    // Presentation Modal
+    function openFullscreenPresentation() {
+      document.getElementById('fullscreenModal').classList.add('active');
+      renderFullscreen();
+    }
+
+    function closeFullscreenPresentation() {
+      document.getElementById('fullscreenModal').classList.remove('active');
+    }
+
+    function renderFullscreen() {
+      const slide = slidesData[currentSlideIdx];
+      document.getElementById('fsNum').innerText = `Slide ${slide.id}`;
+      document.getElementById('fsTitle').innerText = slide.title;
+      document.getElementById('fsSubtitle').innerText = slide.subtitle;
+      document.getElementById('fsBody').innerText = slide.contentProse;
+      document.getElementById('fsCounter').innerText = `${currentSlideIdx + 1} / ${slidesData.length}`;
+    }
+
+    function prevSlide() {
+      if (currentSlideIdx > 0) {
+        currentSlideIdx--;
+        selectSlide(currentSlideIdx);
+        renderFullscreen();
+      }
+    }
+
+    function nextSlide() {
+      if (currentSlideIdx < slidesData.length - 1) {
+        currentSlideIdx++;
+        selectSlide(currentSlideIdx);
+        renderFullscreen();
+      }
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (document.getElementById('fullscreenModal').classList.contains('active')) {
+        if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+        if (e.key === 'ArrowLeft') prevSlide();
+        if (e.key === 'Escape') closeFullscreenPresentation();
+      }
+    });
+
+    // Init
+    renderSlideList();
+    renderSlideStage();
+  </script>
+</body>
+</html>
